@@ -1,10 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
-  background-color: #F3F3F3;
+  background-color: #ffffff;
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container .ql-editor {
@@ -12,7 +22,8 @@ body {
   min-height: 11in;
   padding: 1in;
   margin: 1rem;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+  /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5); */
+  border: 1px solid rgb(189, 189, 189);
   background-color: white;
 }
 
@@ -30,7 +41,13 @@ body {
   z-index: 1;
   background-color: #F3F3F3;
   border: none;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+  background-color: rgb(228, 228, 228);
+  width: 90vw;
+  border-radius: 20px;
+}
+
+.ql-formats button:hover{
+  box-shadow: none;
 }
 
 @page {

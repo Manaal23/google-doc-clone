@@ -3,6 +3,7 @@ import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import { io } from "socket.io-client"
 import { useParams } from "react-router-dom"
+import Nav from "../../components/Nav"
 
 const SAVE_INTERVAL_MS = 2000
 const TOOLBAR_OPTIONS = [
@@ -45,12 +46,12 @@ export default function TextEditor() {
   useEffect(() => {
     if (socket == null || quill == null) return
 
-    const interval = setInterval(() => {
-      socket.emit("save-document", quill.getContents())
-    }, SAVE_INTERVAL_MS)
+    // const interval = setInterval(() => {
+    //   socket.emit("save-document", quill.getContents())
+    // }, SAVE_INTERVAL_MS)
 
     return () => {
-      clearInterval(interval)
+      // clearInterval(interval)
     }
   }, [socket, quill])
 
@@ -70,9 +71,16 @@ export default function TextEditor() {
   useEffect(() => {
     if (socket == null || quill == null) return
 
+    let timeoutId;
     const handler = (delta, oldDelta, source) => {
+
       if (source !== "user") return
       socket.emit("send-changes", delta)
+      
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => {
+        socket.emit("save-document", quill.getContents())
+      }, 3000)
     }
     quill.on("text-change", handler)
 
@@ -95,5 +103,8 @@ export default function TextEditor() {
     q.setText("Loading...")
     setQuill(q)
   }, [])
-  return <div className="container" ref={wrapperRef}></div>
+  return <>
+          <Nav />
+  <div className="container" ref={wrapperRef}></div>
+  </>
 }

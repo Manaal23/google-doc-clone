@@ -1,4 +1,4 @@
-import TextEditor from "./TextEditor"
+import TextEditor from "./pages/TextEditor/TextEditor"
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,18 +6,14 @@ import {
   Redirect,
 } from "react-router-dom"
 import { v4 as uuidV4 } from "uuid"
+import Login from "./pages/Login/Login"
+import PrivateGuard from "./Routing/PrivateGuard"
+import PrivateRoutes from "./Routing/PrivateRoutes"
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact>
-          <Redirect to={`/documents/${uuidV4()}`} />
-        </Route>
-        <Route path="/documents/:id">
-          <TextEditor />
-        </Route>
-      </Switch>
+      <Route path="/" component = {PrivateRoutes} />
     </Router>
   )
 }

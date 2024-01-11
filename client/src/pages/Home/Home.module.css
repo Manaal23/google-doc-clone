@@ -1,0 +1,218 @@
+.home{
+    display: flex;
+    flex-direction: column;
+}
+
+.nav{
+    margin-top: 2px 0 4px 0;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 48px;
+    padding: 8px;    
+    justify-content: space-between;
+}
+.navimg{
+    display: inline;
+}
+.navimg img{
+    object-fit:cover;
+    width: 40px;
+    height: 40px;
+}
+.left {
+    min-width: 153px;    
+    height: 37px;
+    padding-right: 30px;
+    display: flex;
+}
+
+.left span{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mid{
+    flex-grow: 1;    
+    margin: 0 20px;
+    height: 37px;
+    min-width: 230px;
+}
+
+.right{
+    min-width: 153px;
+    height: 37px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.profileImg{
+    height: 40px;
+    width: 40px;
+    margin-right: 30px;
+}
+
+.profileImg img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.logout{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 25px;
+}
+
+.logout button{
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover{
+    box-shadow: 10px 10px grey;
+}
+
+.newDoc {
+    height: 310px;
+    margin-top: 30px;
+    background-color: rgba(137, 137, 137, 0.137);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.newDocFlex{
+    /* background-color: aquamarine; */
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.newDocBody{
+    min-width: 70vw;
+    height: 100vh;
+    /* background-color: blue; */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.docCard{
+    width: 133px;
+    height: 218px;
+    /* background-color: rgb(255, 125, 125); */
+    margin-right: 19px;
+    margin-bottom: 19px;
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+}
+.docNewCard{
+    min-width: 208px;
+    height: 280px;
+    /* background-color: rgb(255, 125, 125); */
+    margin-right: 35px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+    border: 2px solid rgb(211, 211, 211);
+    border-radius: 15px;
+}
+
+.docTitle{
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: flex-start;
+}
+
+.docTitle p{
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.docCard img{
+    width: 133px;
+    height: 150px;
+    object-fit:cover;
+}
+.docCardImg img{
+    width: 133px;
+    height: 150px;
+    object-fit:cover;
+}
+.docCardRecentImg img{
+    width: 207px;
+    height: 180px;
+    object-fit:fill;
+    border-radius: 15px 15px 0 0;
+}
+
+
+.recentDoc{
+    /* background-color: aqua; */
+    min-height: 310px;   
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.cardDetailImg{
+    display: flex;
+    flex-direction: row;
+}
+
+.cardDetailImg i{
+    width: 24px;
+    height: 24px;
+    color: rgb(25, 121, 255);
+    font-size: 20px;
+}
+
+.cardDetailMoreOptions{
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.cardDetailMoreOptions i {
+    font-size: 20px;
+}
+.cardDetailMoreOptions:hover {
+    background-color: rgb(205, 204, 204);
+}
+
+
+.cardDetail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.openedDoc p{
+    font-size: 12px;
+    margin: 0 3px;
+} 
+
+.cardDetailBody{
+    width: 208px;
+    padding: 0 10px 10px 10px;
+}
+
+.recentDocWrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
