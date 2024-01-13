@@ -68,7 +68,7 @@ app.post('/login', AuthController.login)
 app.use('/document', DocRoutes)
 
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`App is running at port ${PORT}`)
 })
