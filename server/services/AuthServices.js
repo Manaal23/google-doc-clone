@@ -8,6 +8,7 @@ class AuthServices {
       let webToken = null;
 
       const client = new OAuth2Client();
+
       async function verify() {
         let token = req.body.credential;
         const ticket = await client.verifyIdToken({
@@ -42,22 +43,27 @@ class AuthServices {
         webToken = genToken({
           id: googleId,
         });
-      }
-      await verify(); // verifying google token
 
-      if (webToken) {
+
+        if (webToken) {
+          return {
+            error: false,
+            message: "Successful",
+            data: {
+              id: googleId,
+              webToken
+            },
+          };
+        }
         return {
-          error: false,
-          message: "Successful",
-          data: webToken,
+          error: true,
+          message: "Something went wrong!",
+          data: null,
         };
       }
+      return await verify(); // verifying google token
 
-      return {
-        error: true,
-        message: "Something went wrong!",
-        data: null,
-      };
+
     } catch (err) {
       console.log(err);
     }

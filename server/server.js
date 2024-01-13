@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 const User = require("./models/User");
 const AuthController = require("./controller/AuthController");
 const cors = require("cors");
+const DocRoutes = require('./routes/documentRoutes')
 
 app.use(cors());
 
@@ -36,8 +37,8 @@ const io = require("socket.io")(server, {
 const defaultValue = ""
 
 io.on("connection", socket => {
-  socket.on("get-document", async documentId => {
-    const document = await findOrCreateDocument(documentId)
+  socket.on("get-document", async ({documentId, userId}) => {
+    const document = await findOrCreateDocument(documentId, userId)
     socket.join(documentId)
     socket.emit("load-document", document.data)
 
@@ -51,17 +52,20 @@ io.on("connection", socket => {
   })
 })
 
-async function findOrCreateDocument(id) {
+async function findOrCreateDocument(id, userId) {
   if (id == null) return
 
   const document = await Document.findById(id)
   if (document) return document
-  return await Document.create({ _id: id, data: defaultValue })
+  return await Document.create({ _id: id, data: defaultValue, userId })
 }
 
 
 
+
+// Routes
 app.post('/login', AuthController.login)
+app.use('/document', DocRoutes)
 
 
 const PORT = 3001;
