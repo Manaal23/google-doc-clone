@@ -22,11 +22,11 @@ export default function TextEditor() {
   const { id: documentId } = useParams()
   const [socket, setSocket] = useState()
   const [quill, setQuill] = useState()
-
+  
   useEffect(() => {
     const s = io(process.env.REACT_APP_BACKEND_URL)
     setSocket(s)
-
+    
     return () => {
       s.disconnect()
     }
@@ -40,7 +40,8 @@ export default function TextEditor() {
       quill.enable()
     })
 
-    socket.emit("get-document", documentId)
+    let userId = localStorage.getItem('userId')
+    socket.emit("get-document", {documentId, userId})
   }, [socket, quill, documentId])
 
   useEffect(() => {

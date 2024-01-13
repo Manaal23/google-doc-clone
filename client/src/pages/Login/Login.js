@@ -15,7 +15,8 @@ function Login() {
     const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
       credential: credentialResponse.credential
     })
-    localStorage.setItem('token', res.data.data)
+    localStorage.setItem('token', res.data.data.webToken)
+    localStorage.setItem('userId', res.data.data.id)
 
     return <Redirect to={`/documents/home`} />
   }}
