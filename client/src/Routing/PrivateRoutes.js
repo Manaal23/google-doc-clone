@@ -16,7 +16,7 @@ function PrivateRoutes () {
   return (
     <Switch>
 
-      <PrivateGuard path="/" exact />
+      <PrivateGuard path="/" component={Login} exact />
       <PrivateGuard path="/login" component={Login} exact />
       <PrivateGuard path="/documents/home" component={Home} exact />
       <PrivateGuard path={`/documents/:id`} component={TextEditor} exact/>
