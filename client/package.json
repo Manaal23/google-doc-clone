@@ -2,6 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.8.0",
+    "npm": "7.21.0"
+  },
   "dependencies": {
     "@babel/register": "^7.23.7",
     "@react-oauth/google": "^0.12.1",
