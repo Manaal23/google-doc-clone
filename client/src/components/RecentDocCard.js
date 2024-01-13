@@ -1,17 +1,28 @@
 import React from "react";
 import homeStyle from "../pages/Home/Home.module.css";
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 
-function RecentDocCard({ docId, docIds, setDocIds }) {
+function RecentDocCard({ docData, docIds, setDocIds }) {
 
   const history = useHistory()
 
   const handleClick = () =>{
-    history.push(`/documents/${docId}`)
+    history.push(`/documents/${docData._id}`)
   }
 
-  const handleDelete = () =>{    
-    const filterData = docIds.filter(i => i._id !== docId)
+  const handleDelete = async () =>{    
+    const filterData = docIds.filter(i => i._id !== docData._id)
+    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/document/delete`, {
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem('token')}`
+      },
+      data: {
+        docId: docData._id
+      }
+    })
+    
+    if (res.status === 201)
     setDocIds(filterData)
   }
   return (
@@ -21,7 +32,7 @@ function RecentDocCard({ docId, docIds, setDocIds }) {
       </div>
       <div className={homeStyle.cardDetailBody}>
         <div className={homeStyle.docTitle}>
-          <p>Blank Document</p>
+          <p>{docData.title}</p>
         </div>
         <div className={homeStyle.cardDetail}>
           <div className={homeStyle.cardDetailImg}>

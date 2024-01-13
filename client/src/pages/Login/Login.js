@@ -3,8 +3,10 @@ import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import styles from './Login.module.css'
 import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Login() {
+  const history = useHistory()
 
   return (
     <div className={styles.login}>
@@ -16,9 +18,9 @@ function Login() {
       credential: credentialResponse.credential
     })
     localStorage.setItem('token', res.data.data.webToken)
-    localStorage.setItem('userId', res.data.data.id)
+    localStorage.setItem('userData', JSON.stringify(res.data.data.userData))
 
-    return <Redirect to={`/documents/home`} />
+    history.push('/documents/home')
   }}
   onError={() => {
     console.log('Login Failed');

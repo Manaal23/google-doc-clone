@@ -20,6 +20,17 @@
     width: 40px;
     height: 40px;
 }
+
+.navtext {
+    padding: 0;
+    font-size: 22px;
+    border: 0;
+}
+
+.navtext:focus, .navtext:disabled{
+    outline: none;
+    background-color: #fff;
+}
 .left {
     min-width: 153px;    
     height: 37px;

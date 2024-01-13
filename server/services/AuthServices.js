@@ -50,7 +50,13 @@ class AuthServices {
             error: false,
             message: "Successful",
             data: {
-              id: googleId,
+              userData:{
+                id: googleId,
+                firstname,
+                lastname,
+                email,
+                image,
+              },
               webToken
             },
           };

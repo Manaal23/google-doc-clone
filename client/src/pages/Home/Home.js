@@ -45,7 +45,7 @@ function Home() {
               docIds.map((i) => {
                 return (
                   <RecentDocCard
-                    docId={i._id}
+                    docData={i}
                     setDocIds={setDocIds}
                     docIds={docIds}
                   />

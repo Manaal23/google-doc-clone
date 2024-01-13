@@ -40,14 +40,14 @@ io.on("connection", socket => {
   socket.on("get-document", async ({documentId, userId}) => {
     const document = await findOrCreateDocument(documentId, userId)
     socket.join(documentId)
-    socket.emit("load-document", document.data)
+    socket.emit("load-document", document)
 
     socket.on("send-changes", delta => {
       socket.broadcast.to(documentId).emit("receive-changes", delta)
     })
 
-    socket.on("save-document", async data => {
-      await Document.findByIdAndUpdate(documentId, { data })
+    socket.on("save-document", async (...data) => {
+      await Document.findByIdAndUpdate(documentId, { data: data[0], title: data[1] })
     })
   })
 })

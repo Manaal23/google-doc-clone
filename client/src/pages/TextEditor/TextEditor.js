@@ -22,6 +22,7 @@ export default function TextEditor() {
   const { id: documentId } = useParams()
   const [socket, setSocket] = useState()
   const [quill, setQuill] = useState()
+  const [title, setTitle] = useState('Document')
   
   useEffect(() => {
     const s = io(process.env.REACT_APP_BACKEND_URL)
@@ -36,12 +37,14 @@ export default function TextEditor() {
     if (socket == null || quill == null) return
 
     socket.once("load-document", document => {
-      quill.setContents(document)
+      quill.setContents(document.data)
+
+      setTitle(document.title)
       quill.enable()
     })
 
-    let userId = localStorage.getItem('userId')
-    socket.emit("get-document", {documentId, userId})
+    let userData = JSON.parse(localStorage.getItem('userData'))
+    socket.emit("get-document", {documentId, userId : userData.id})
   }, [socket, quill, documentId])
 
   useEffect(() => {
@@ -80,7 +83,7 @@ export default function TextEditor() {
       
       clearTimeout(timeoutId)
       timeoutId = setTimeout(() => {
-        socket.emit("save-document", quill.getContents())
+        socket.emit("save-document", quill.getContents(), title)
       }, 3000)
     }
     quill.on("text-change", handler)
@@ -104,8 +107,20 @@ export default function TextEditor() {
     q.setText("Loading...")
     setQuill(q)
   }, [])
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value)
+  }
+
+  const handleBlur = () => {
+    if (!title.trim())
+    setTitle('Untitle Document')
+
+    socket.emit("save-document", quill.getContents(), !title.trim() ? 'Untitle Document' : title)
+  };
+
   return <>
-          <Nav />
+          <Nav title={title} setTitle={setTitle} handleTitleChange={handleTitleChange} handleBlur={handleBlur}/>
   <div className="container" ref={wrapperRef}></div>
   </>
 }
