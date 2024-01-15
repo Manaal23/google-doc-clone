@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import homeStyle from "../pages/Home/Home.module.css";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import MoreOptions from "./MoreOptions/MoreOptions";
 
 function RecentDocCard({ docData, docIds, setDocIds }) {
 
   const history = useHistory()
+    const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () =>{
     history.push(`/documents/${docData._id}`)
   }
-
-  const handleDelete = async () =>{    
+  const handleDelete = async () =>{   
     const filterData = docIds.filter(i => i._id !== docData._id)
     const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/document/delete`, {
       headers:{
@@ -25,6 +26,9 @@ function RecentDocCard({ docData, docIds, setDocIds }) {
     if (res.status === 201)
     setDocIds(filterData)
   }
+
+
+
   return (
     <div className={homeStyle.docNewCard}>
       <div className={homeStyle.docCardRecentImg} onClick={handleClick}>
@@ -42,8 +46,14 @@ function RecentDocCard({ docData, docIds, setDocIds }) {
           <div className={homeStyle.openedDoc}>
             <p>Opened 12:26 PM</p>
           </div>
-          <div className={homeStyle.cardDetailMoreOptions} onClick={handleDelete}>
+          <div className={homeStyle.cardDetailMoreOptions} onClick={() => setIsOpen((prev) => !prev)}>
             <i class="fa-solid fa-ellipsis-vertical" ></i>
+            <MoreOptions titleFunctionObj={[
+              {
+                title: 'Remove',
+                function: handleDelete
+              },
+            ]} isOpen={isOpen} setIsOpen={setIsOpen}/>
           </div>
         </div>
       </div>

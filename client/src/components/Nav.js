@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import homeStyle from "../pages/Home/Home.module.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-function Nav({ title,setTitle, handleTitleChange, handleBlur }) {
+function Nav({ title,setTitle, handleTitleChange, handleBlur, showShare }) {
   const history = useHistory();
 
   const handleLogout = () => {
@@ -23,9 +23,21 @@ function Nav({ title,setTitle, handleTitleChange, handleBlur }) {
           onChange={handleTitleChange}
           onBlur={handleBlur}
         />
+        {/* <div className={homeStyle.sync}>
+        <i class="fa-solid fa-rotate"></i>
+        </div> */}
       </div>
       <div className={homeStyle.mid}></div>
       <div className={homeStyle.right}>
+      {showShare && <div className={homeStyle.shareDocDiv}>
+          <div className={homeStyle.shareDoc}>
+            <div className={homeStyle.shareDocImg}>
+              
+          <i class="fa-solid fa-lock"></i>
+            </div>
+          <span>Share</span>
+          </div>
+        </div>}
         <div className={homeStyle.logout} onClick={handleLogout}>
           <button>Logout</button>
         </div>

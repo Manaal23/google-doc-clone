@@ -87,7 +87,8 @@
 }
 
 button:hover{
-    box-shadow: 10px 10px grey;
+    box-shadow: 1px 1px 1px grey;
+    cursor: pointer;
 }
 
 .newDoc {
@@ -104,6 +105,7 @@ button:hover{
     width: 90vw;
     display: flex;
     flex-direction: column;
+    margin: 0 231px;
 }
 
 .newDocBody{
@@ -137,6 +139,10 @@ button:hover{
     border-radius: 15px;
 }
 
+.docNewCard:hover{
+    border: 2px solid rgb(0, 105, 211);
+}
+
 .docTitle{
     /* background-color: aqua; */
     display: flex;
@@ -155,9 +161,14 @@ button:hover{
     object-fit:cover;
 }
 .docCardImg img{
+    border: 2px solid rgb(211, 211, 211);
     width: 133px;
     height: 150px;
     object-fit:cover;
+}
+
+.docCardImg img:hover{
+    border: 2px solid rgb(0, 105, 211);
 }
 .docCardRecentImg img{
     width: 207px;
@@ -196,6 +207,7 @@ button:hover{
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    position: relative;
 }
 
 .cardDetailMoreOptions i {
@@ -223,7 +235,41 @@ button:hover{
 }
 
 .recentDocWrapper{
+    min-width: 70vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.shareDocDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.shareDoc{
+    display: flex;
+    justify-content: center;
+    background-color: #c2e7ff;
+    width: 119px;
+    height: 40px;
+    padding: 9px 20px;
+    margin-right: 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.shareDoc:hover{
+    box-shadow: 1px 1px 1px 1px grey;
+
+}
+
+.shareDocImg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.shareDoc i{
+    margin-right: 8px;
 }

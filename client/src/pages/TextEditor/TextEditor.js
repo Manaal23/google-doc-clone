@@ -120,7 +120,7 @@ export default function TextEditor() {
   };
 
   return <>
-          <Nav title={title} setTitle={setTitle} handleTitleChange={handleTitleChange} handleBlur={handleBlur}/>
+          <Nav title={title} setTitle={setTitle} handleTitleChange={handleTitleChange} handleBlur={handleBlur} showShare={true}/>
   <div className="container" ref={wrapperRef}></div>
   </>
 }
