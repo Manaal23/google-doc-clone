@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import homeStyle from "../pages/Home/Home.module.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-function Nav({ title,setTitle, handleTitleChange, handleBlur, showShare }) {
+function Nav({ title,setTitle, handleTitleChange, handleBlur, showShare, showSearch, showSaving }) {
   const history = useHistory();
 
   const handleLogout = () => {
@@ -23,11 +23,29 @@ function Nav({ title,setTitle, handleTitleChange, handleBlur, showShare }) {
           onChange={handleTitleChange}
           onBlur={handleBlur}
         />
-        {/* <div className={homeStyle.sync}>
-        <i class="fa-solid fa-rotate"></i>
-        </div> */}
+        {
+          showSaving ? 
+          <div className={homeStyle.sync}>
+          <i className="fa-solid fa-rotate"></i>
+          <span>Saving...</span>
+          </div>
+          :
+          <div className={`${homeStyle.cloudDiv} ${homeStyle.tooltip}`}>
+            <span className={homeStyle.tooltiptext}>Synced on cloud</span>
+            <span>
+              <i className="fa-solid fa-cloud"></i>
+              <span className={homeStyle.faCheck}>
+              <i className="fa-solid fa-check"></i>
+              </span>
+            </span>
+          </div>
+          
+        }
       </div>
+      {
+        showSearch && 
       <div className={homeStyle.mid}></div>
+      }
       <div className={homeStyle.right}>
       {showShare && <div className={homeStyle.shareDocDiv}>
           <div className={homeStyle.shareDoc}>

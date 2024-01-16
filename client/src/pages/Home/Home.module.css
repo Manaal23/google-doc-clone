@@ -32,7 +32,6 @@
     background-color: #fff;
 }
 .left {
-    min-width: 153px;    
     height: 37px;
     padding-right: 30px;
     display: flex;
@@ -42,6 +41,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.left input{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .mid{
@@ -273,3 +278,49 @@ button:hover{
 .shareDoc i{
     margin-right: 8px;
 }
+
+.sync{
+    display: flex;
+    align-items: center;
+    margin-left: 6px;
+    font-size: 14px;
+}
+
+.sync i {
+    margin-right: 6px;
+}
+
+.cloudDiv{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.faCheck {
+    position: absolute;
+    right: 4px;
+    color: white;
+    font-size: 13px;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    text-wrap: nowrap;
+    width: auto;
+    background-color: black;
+    color: #fff;
+    /* text-align: center; */
+    padding: 5px 5px;
+    font-size: 12px;
+    border-radius: 6px;
+    top: 30px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 2;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }

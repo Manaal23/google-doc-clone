@@ -22,6 +22,7 @@ export default function TextEditor() {
   const { id: documentId } = useParams()
   const [socket, setSocket] = useState()
   const [quill, setQuill] = useState()
+  const [showSaving, setShowSaving] = useState(false)
   const [title, setTitle] = useState('Document')
   
   useEffect(() => {
@@ -72,19 +73,24 @@ export default function TextEditor() {
     }
   }, [socket, quill])
 
+  let timeoutId, showSaveTimeOut;
   useEffect(() => {
     if (socket == null || quill == null) return
 
-    let timeoutId;
     const handler = (delta, oldDelta, source) => {
 
       if (source !== "user") return
       socket.emit("send-changes", delta)
       
       clearTimeout(timeoutId)
+      clearTimeout(showSaveTimeOut)
+      showSaveTimeOut = setTimeout(() => {
+        setShowSaving(false)
+      }, 4000)
       timeoutId = setTimeout(() => {
+        setShowSaving(true)
         socket.emit("save-document", quill.getContents(), title)
-      }, 3000)
+      }, 1000)
     }
     quill.on("text-change", handler)
 
@@ -116,11 +122,17 @@ export default function TextEditor() {
     if (!title.trim())
     setTitle('Untitle Document')
 
+    clearTimeout(showSaveTimeOut)
+    showSaveTimeOut = setTimeout(() => {
+      setShowSaving(false)
+    }, 4000)
+
+    setShowSaving(true)
     socket.emit("save-document", quill.getContents(), !title.trim() ? 'Untitle Document' : title)
   };
 
   return <>
-          <Nav title={title} setTitle={setTitle} handleTitleChange={handleTitleChange} handleBlur={handleBlur} showShare={true}/>
+          <Nav title={title} setTitle={setTitle} handleTitleChange={handleTitleChange} handleBlur={handleBlur} showShare={true} showSaving={showSaving}/>
   <div className="container" ref={wrapperRef}></div>
   </>
 }
