@@ -4,9 +4,11 @@ import axios from 'axios';
 import styles from './Login.module.css'
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import useApiCall from "../../common/useApiCall";
 
 function Login() {
   const history = useHistory()
+  const {loading, fetchData} = useApiCall()
 
   return (
     <div className={styles.login}>
@@ -14,9 +16,13 @@ function Login() {
 
     <GoogleLogin
   onSuccess={async (credentialResponse) => {
-    const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
-      credential: credentialResponse.credential
-    })
+    const res = await fetchData({
+      method: 'post',
+      path: '/login',
+      data: {
+        credential: credentialResponse.credential
+      }
+    });
     localStorage.setItem('token', res.data.data.webToken)
     localStorage.setItem('userData', JSON.stringify(res.data.data.userData))
 

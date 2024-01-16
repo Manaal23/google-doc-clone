@@ -3,21 +3,18 @@ import homeStyle from "./Home.module.css";
 import RecentDocCard from "../../components/RecentDocCard";
 import NewDocCard from "../../components/NewDocCard";
 import Nav from "../../components/Nav";
-import axios from "axios";
+import useApiCall from "../../common/useApiCall";
 
 function Home() {
   const [docIds, setDocIds] = useState([]);
+  const {loading, fetchData} = useApiCall()
 
   const fetchDocsList = async () => {
-    const docList = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/document/get`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    setDocIds([...docIds, ...docList.data.data]);
+    const docList = await fetchData({
+      method: 'get',
+      path: '/document/get'
+    })
+    setDocIds([...docIds, ...docList?.data?.data]);
   };
   useEffect(() => {
     fetchDocsList();

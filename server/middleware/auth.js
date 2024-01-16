@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
   } catch (e) {
     res
       .status(401)
-      .send({ error: "YOUR SESSION HAS EXPIRED. PLEASE LOGIN AGAIN." });
+      .send({ error:true, message: "YOUR SESSION HAS EXPIRED. PLEASE LOGIN AGAIN." });
   }
 };
 

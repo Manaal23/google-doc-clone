@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import homeStyle from "../pages/Home/Home.module.css";
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
 import MoreOptions from "./MoreOptions/MoreOptions";
+import useApiCall from "../common/useApiCall";
 
 function RecentDocCard({ docData, docIds, setDocIds }) {
 
   const history = useHistory()
     const [isOpen, setIsOpen] = useState(false);
+    const {loading,fetchData} = useApiCall();
 
   const handleClick = () =>{
     history.push(`/documents/${docData._id}`)
   }
   const handleDelete = async () =>{   
     const filterData = docIds.filter(i => i._id !== docData._id)
-    const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/document/delete`, {
-      headers:{
-        Authorization:`Bearer ${localStorage.getItem('token')}`
-      },
+    const res = await fetchData({
+      method: 'delete',
+      path: '/document/delete',
       data: {
         docId: docData._id
       }
-    })
+    });
     
-    if (res.status === 201)
+    if (res?.status === 201)
     setDocIds(filterData)
   }
 
