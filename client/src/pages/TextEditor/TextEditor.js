@@ -87,6 +87,7 @@ export default function TextEditor() {
       showSaveTimeOut = setTimeout(() => {
         setShowSaving(false)
       }, 4000)
+
       timeoutId = setTimeout(() => {
         setShowSaving(true)
         socket.emit("save-document", quill.getContents(), title)
@@ -97,7 +98,7 @@ export default function TextEditor() {
     return () => {
       quill.off("text-change", handler)
     }
-  }, [socket, quill])
+  }, [socket, quill, title])
 
   const wrapperRef = useCallback(wrapper => {
     if (wrapper == null) return

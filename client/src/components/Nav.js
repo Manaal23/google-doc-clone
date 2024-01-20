@@ -30,7 +30,7 @@ function Nav({ title,setTitle, handleTitleChange, handleBlur, showShare, showSea
           <span>Saving...</span>
           </div>
           :
-          <div className={`${homeStyle.cloudDiv} ${homeStyle.tooltip}`}>
+          showShare && <div className={`${homeStyle.cloudDiv} ${homeStyle.tooltip}`}>
             <span className={homeStyle.tooltiptext}>Synced on cloud</span>
             <span>
               <i className="fa-solid fa-cloud"></i>
