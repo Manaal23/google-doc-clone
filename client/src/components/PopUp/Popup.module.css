@@ -1,0 +1,196 @@
+.parent{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.container{
+    max-width: 512px;
+    min-height: 418px;
+    padding: 5px;
+}
+
+.child{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.top{
+    height: 56px;
+    padding:16px 8px 0 24px ;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.close{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.close:hover{
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+}
+
+.header h2{
+    margin: 0;
+}
+
+.mid{
+    min-height: 273px;
+    padding-top: 16px;
+    /* background-color: aqua; */
+}
+
+.input input{
+    height: 48px;
+    padding: 0 12px;
+    width: 454px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus{
+    border: 2px solid blue;
+}
+
+.input{
+    padding: 0 24px;
+}
+
+.accessheading{
+    padding: 16px 0 0 24px;
+    height: 40px;
+    /* background-color: blanchedalmond; */
+}
+
+.docaccess{
+    min-height: 54px;
+    max-height: 108px;
+    overflow-y: scroll;
+    margin-top: 8px;
+    /* background-color: blueviolet; */
+    padding: 8px 24px 8px 16px;
+}
+.docaccess::-webkit-scrollbar{
+    display: none;
+}
+
+.docAccessList{
+    height: 54px;
+    /* background-color:cadetblue; */
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.generalaccess{
+    height: 48px;
+    padding: 24px 0 0 24px;
+}
+
+.accessOptions{
+height: 58px;
+padding: 8px 0 8px 24px;
+display: flex;
+}
+
+.accessIcon, .memberIcon{
+    height: 32px;
+    width: 32px;    
+    margin-right: 8px;
+    border-radius: 50%;
+    background-color: rgb(190, 190, 190);
+}
+
+.accessIcon img, .memberIcon img{
+    height: 32px;
+    width: 32px;
+    object-fit:contain;
+    border-radius: 50%;
+}
+
+.memberIcon{
+    margin-left: 8px;
+}
+
+.accessFlex, .memberDetail{
+    display: flex;
+    flex-direction: column;
+    margin-left: 4px;
+    width: 319px;
+    height: 16px;
+}
+
+.memberDetail{
+    justify-content: center;
+
+}
+
+.accessDesc{
+    height: 16px;
+    font-size: 0.75rem;
+    flex: 1;
+    text-wrap: wrap;
+}
+
+.accessType{
+    width: 74px;
+    height: 34px;
+    padding: 1px 12px 1px 16px;
+    /* background-color: bisque; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.bottom{
+    /* background-color: aquamarine; */
+    padding: 16px 24px;
+    height: 88px;
+}
+
+.bottomFlex{
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.copyLink, .done{
+    height: 40px;
+}
+
+.copyLink button, .done button{
+    width: 85px;
+    height: 38px;
+    border-radius: 20px;
+    border: 1px solid grey;
+    font-weight:bolder;
+}
+
+.copyLink button{
+    background-color: white;
+    color: #0b57d0;
+}
+
+.done button{
+    background-color: #0b57d0;
+    color: white;
+}
+
+
