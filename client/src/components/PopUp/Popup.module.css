@@ -35,7 +35,7 @@
 
 .close{
     height: 40px;
-    width: 40px;
+    min-width: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,6 +49,9 @@
 
 .header h2{
     margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .mid{
@@ -65,6 +68,20 @@
     border-radius: 5px;
     outline: none;
 }
+.inputDropDown{
+    z-index: 4;
+    background-color: #e9eef6;
+    width: 454px;
+    min-height: 54px;
+    max-height: 270px;
+    position: absolute;
+    top: 54px;
+    box-shadow: 0px 0px 4px 0px;
+}
+
+.inputDropDown li:hover{
+    background-color: rgb(214, 214, 214);
+}
 
 input:focus{
     border: 2px solid blue;
@@ -72,6 +89,7 @@ input:focus{
 
 .input{
     padding: 0 24px;
+    position: relative;
 }
 
 .accessheading{
@@ -88,8 +106,9 @@ input:focus{
     /* background-color: blueviolet; */
     padding: 8px 24px 8px 16px;
 }
-.docaccess::-webkit-scrollbar{
-    display: none;
+.inputList{
+    margin: 0;
+    padding: 0
 }
 
 .docAccessList{
@@ -107,7 +126,7 @@ input:focus{
 
 .accessOptions{
 height: 58px;
-padding: 8px 0 8px 24px;
+padding: 8px 32px 8px 24px;
 display: flex;
 }
 
@@ -191,6 +210,9 @@ display: flex;
 .done button{
     background-color: #0b57d0;
     color: white;
+}
+.docAccessList span{
+    opacity: 0.4;
 }
 
 

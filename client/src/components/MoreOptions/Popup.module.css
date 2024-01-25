@@ -5,13 +5,8 @@
     position: absolute;
     top: 34px;
     background-color: #fff;
-    /* border: 2px solid rgb(211, 211, 211) ; */
     box-shadow: 1px 1px 4px 1px grey;
     overflow-y: scroll;
-}
-
-.moreOptions::-webkit-scrollbar{
-    display: none;
 }
 
 .moreOptions .list{

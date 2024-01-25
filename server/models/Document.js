@@ -4,7 +4,9 @@ const Document = new Schema({
   _id: String,
   data: Object,
   userId: String,
-  title: String
+  title: String,
+  docAccess: { type: String, enum:['public', 'private', 'group'], default: 'private'},
+  shared: [{ userId: String, role: String}]
 })
 
 module.exports = model("Document", Document)

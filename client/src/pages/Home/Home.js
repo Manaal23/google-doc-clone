@@ -14,6 +14,7 @@ function Home() {
       method: 'get',
       path: '/document/get'
     })
+    if (docList)
     setDocIds([...docIds, ...docList?.data?.data]);
   };
   useEffect(() => {
