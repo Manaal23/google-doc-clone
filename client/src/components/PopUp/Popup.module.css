@@ -10,6 +10,11 @@
     z-index: 2;
 }
 
+.accessTitle select{
+    font-size: 15px;
+    padding-left: 0;
+}
+
 .container{
     max-width: 512px;
     min-height: 418px;

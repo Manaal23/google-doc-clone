@@ -1,13 +1,18 @@
-import React, { useState } from "react";
-import dropdownStyles from "./DropDown.module.css";
+import React, { useEffect, useState } from "react";
 
 function DropDown({ ...props }) {
-
+  const [selected, setSelected] = useState("viewer");
   const handleChange = (e) => {
-    props.setSelected(e.target.value)
+    setSelected(e.target.value)
+    props.updateData(props.idx ?? -1, e.target.value, props.name)
   }
+
+  useEffect(() => {
+    setSelected(props.selected)
+  }, [props.selected])
+
   return (
-    <select value={props.selected} onChange={handleChange}>
+    <select value={selected} onChange={handleChange}>
       {
         props.options.map(i => {
           return <option value={i}>{i}</option>
