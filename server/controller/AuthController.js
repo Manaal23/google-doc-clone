@@ -5,6 +5,10 @@ class AuthController {
         const response = await AuthServices.login(req, res);
         res.status(response.error ? 400 : 201).send(response)
     }
+    async searchUser (req, res) {
+        const response = await AuthServices.searchUser(req, res);
+        res.status(response.error ? 400 : 201).send(response)
+    }
 }
 
 module.exports = new AuthController()

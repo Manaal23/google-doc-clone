@@ -9,6 +9,7 @@ const User = require("./models/User");
 const AuthController = require("./controller/AuthController");
 const cors = require("cors");
 const DocRoutes = require('./routes/documentRoutes')
+const UserRoutes = require('./routes/userRoutes')
 
 app.use(cors());
 
@@ -64,7 +65,7 @@ async function findOrCreateDocument(id, userId) {
 
 
 // Routes
-app.post('/login', AuthController.login)
+app.use('/', UserRoutes)
 app.use('/document', DocRoutes)
 
 

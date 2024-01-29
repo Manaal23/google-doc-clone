@@ -1,12 +1,20 @@
-const { Schema, model } = require("mongoose")
+const { Schema, model, SchemaType } = require("mongoose")
 
 const Document = new Schema({
   _id: String,
   data: Object,
   userId: String,
   title: String,
-  docAccess: { type: String, enum:['public', 'private', 'group'], default: 'private'},
-  shared: [{ userId: String, role: String}]
-})
+  docAccess: { accessType : {
+    type: String, enum:['public', 'private'], default: 'private'
+  },
+  role: {
+      type: String, enum:['viewer', 'editor', 'commenter'], default: 'viewer'
+    }
+},
+  shared: [{ userId: Schema.Types.ObjectId, role: {
+    type: String, enum:['viewer', 'editor', 'commenter'], default: 'viewer'
+  }}]
+},{ _id : false })
 
 module.exports = model("Document", Document)
