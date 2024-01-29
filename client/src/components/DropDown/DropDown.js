@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dropdownStyles from "./DropDown.module.css";
 
 function DropDown({ ...props }) {
   const [selected, setSelected] = useState("viewer");
