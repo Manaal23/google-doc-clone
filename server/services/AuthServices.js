@@ -44,20 +44,19 @@ class AuthServices {
           id: googleId,
         });
 
-
         if (webToken) {
           return {
             error: false,
             message: "Successful",
             data: {
-              userData:{
+              userData: {
                 id: googleId,
                 firstname,
                 lastname,
                 email,
                 image,
               },
-              webToken
+              webToken,
             },
           };
         }
@@ -68,46 +67,41 @@ class AuthServices {
         };
       }
       return await verify(); // verifying google token
-
-
     } catch (err) {
       console.log(err);
     }
   }
 
-  async searchUser(req,res){
-    try{
-
+  async searchUser(req, res) {
+    try {
       let { search } = req.query;
       let query = {
-        $or:[
+        $or: [
           {
             email: {
-            $regex: new RegExp(search, 'i')
-          }
-        },
-        {
-          $or: [
-            {
-              firstname: new RegExp(search, 'i')
+              $regex: new RegExp(search, "i"),
             },
-            {
-              lastname: new RegExp(search, 'i')
-            }
-          ]
-        }
-
-        ]
-      }
-      const res = await User.find(query, { googleId: 0, __v:0 }).limit(5)
+          },
+          {
+            $or: [
+              {
+                firstname: new RegExp(search, "i"),
+              },
+              {
+                lastname: new RegExp(search, "i"),
+              },
+            ],
+          },
+        ],
+      };
+      const res = await User.find(query, { __v: 0 }).limit(5);
 
       return {
         error: false,
         data: res,
         message: "Users loaded successfully",
       };
-
-    }catch(err){
+    } catch (err) {
       return {
         error: true,
         message: err,
