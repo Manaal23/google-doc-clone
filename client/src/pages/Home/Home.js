@@ -4,24 +4,25 @@ import RecentDocCard from "../../components/RecentDocCard";
 import NewDocCard from "../../components/NewDocCard";
 import Nav from "../../components/Nav";
 import useApiCall from "../../common/useApiCall";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 
 function Home() {
   const [docIds, setDocIds] = useState([]);
-  const {loading, fetchData} = useApiCall()
+  const { loading, fetchData } = useApiCall();
 
   const fetchDocsList = async () => {
     const docList = await fetchData({
-      method: 'get',
-      path: '/document/get'
-    })
-    if (docList)
-    setDocIds([...docIds, ...docList?.data?.data]);
+      method: "get",
+      path: "/document/get",
+    });
+    if (docList) setDocIds([...docIds, ...docList?.data?.data]);
   };
   useEffect(() => {
     fetchDocsList();
   }, []);
   return (
     <div>
+      {loading ? <FullPageLoader /> : null}
       <Nav />
       <div className={homeStyle.newDoc}>
         <div className={homeStyle.newDocFlex}>

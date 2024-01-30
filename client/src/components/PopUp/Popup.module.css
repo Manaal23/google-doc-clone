@@ -15,6 +15,12 @@
     padding-left: 0;
 }
 
+.accessTitle i{
+    margin-left: 5px;
+    cursor: pointer;
+    color: red;
+}
+
 .container{
     max-width: 512px;
     min-height: 418px;
@@ -26,6 +32,7 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
+    position: relative;
 }
 
 .top{
@@ -36,6 +43,17 @@
 .header{
     display: flex;
     justify-content: space-between;
+}
+
+.saved{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: green;
+    font-weight: 600;
 }
 
 .close{
@@ -115,6 +133,9 @@ input:focus{
     margin: 0;
     padding: 0
 }
+.inputList li{
+    cursor: pointer;
+}
 
 .docAccessList{
     height: 54px;
@@ -141,6 +162,9 @@ display: flex;
     margin-right: 8px;
     border-radius: 50%;
     background-color: rgb(190, 190, 190);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .accessIcon img, .memberIcon img{
@@ -218,6 +242,15 @@ display: flex;
 }
 .docAccessList span{
     opacity: 0.4;
+}
+
+.copied{
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 8px 120px 8px 24px;
+    bottom: 0;
+    left: 25%;
 }
 
 

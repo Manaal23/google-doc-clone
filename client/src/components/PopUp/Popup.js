@@ -1,20 +1,24 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect, useRef, useState } from "react";
 import PopupStyle from "./Popup.module.css";
 import DropDown from "../DropDown/DropDown";
 import useApiCall from "../../common/useApiCall";
 import { useLocation } from "react-router-dom";
+import FullPageLoader from "../FullPageLoader/FullPageLoader";
 
 function Popup({ ...props }) {
   const user = JSON.parse(localStorage.getItem("userData"));
   const popupRef = useRef(null);
-  const location = useLocation();
-  const splitURL = location.pathname.split("/");
+  const locationObj = useLocation();
+  const splitURL = locationObj.pathname.split("/");
   const docId = splitURL[splitURL.length - 1];
   const [textVal, setTextVal] = useState("");
   const { loading, fetchData } = useApiCall();
   const [timeOutId, setTimeOutId] = useState(null);
   const [searchUserList, setSearchUserList] = useState([]);
   const [sharedUserList, setSharedUserList] = useState([]);
+  const [saveLabel, setSaveLabel] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [docAccess, setDocAccess] = useState({
     accessType: "private",
     role: "viewer",
@@ -50,7 +54,7 @@ function Popup({ ...props }) {
 
   useEffect(() => {
     let filteredSearch = searchUserList.filter(
-      (i) => !sharedUserList.map((ele) => ele.userId).includes(i._id)
+      (i) => !sharedUserList.map((ele) => ele.userId).includes(i.googleId)
     );
     setSearchUserList([...filteredSearch]);
   }, [sharedUserList]);
@@ -83,14 +87,21 @@ function Popup({ ...props }) {
       data,
     });
 
+    let t;
     if (res?.status === 201) {
       // show saved successfully
+      setSaveLabel(true);
+      clearTimeout(t);
+      t = setTimeout(() => {
+        props.setOpenPopup(false);
+        setSaveLabel(false);
+      }, 1000);
     }
   };
 
   const handleSearchSelect = (item) => {
     let payload = {
-      userId: item._id,
+      userId: item.googleId,
       role: "viewer",
       email: item.email,
       firstname: item.firstname,
@@ -98,10 +109,10 @@ function Popup({ ...props }) {
       image: item.image,
     };
 
-    addUsers(payload);
-  };
-  const addUsers = (i) => {
-    setSharedUserList([...sharedUserList, i]);
+    if (user.id === item.googleId) return;
+
+    if (!sharedUserList.filter((i) => i.userId === item.googleId)?.length)
+      setSharedUserList([...sharedUserList, payload]);
   };
 
   const updateData = (idx, val, name) => {
@@ -143,6 +154,21 @@ function Popup({ ...props }) {
 
     saveRole(payload);
   };
+
+  let t;
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(`${location.href}`);
+    setCopied(true);
+    clearTimeout(t);
+    t = setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
+
+  const removeUser = (item) => {
+    let tmp = sharedUserList.filter((i) => i.userId !== item.userId);
+    setSharedUserList([...tmp]);
+  };
   return props.openPopup ? (
     <div className={PopupStyle.parent}>
       <div className={PopupStyle.container}>
@@ -150,6 +176,11 @@ function Popup({ ...props }) {
           <div className={PopupStyle.top}>
             <div className={PopupStyle.header}>
               <h2>Share {props.title}</h2>
+              {saveLabel ? (
+                <div className={PopupStyle.saved}>
+                  <span>Saved Successfully</span>
+                </div>
+              ) : null}
               <div
                 className={PopupStyle.close}
                 onClick={() => props.setOpenPopup(false)}
@@ -219,6 +250,10 @@ function Popup({ ...props }) {
                         <div className={PopupStyle.memberDetail}>
                           <div className={PopupStyle.accessTitle}>
                             {`${i.firstname} ${i.lastname}`}
+                            <i
+                              className="fa-solid fa-xmark"
+                              onClick={() => removeUser(i)}
+                            ></i>
                           </div>
                           <div className={PopupStyle.accessDesc}>{i.email}</div>
                         </div>
@@ -227,7 +262,7 @@ function Popup({ ...props }) {
                           name={"sharedUsers"}
                           idx={idx}
                           updateData={updateData}
-                          options={["viewer", "commenter", "editor"]}
+                          options={["viewer", "editor"]}
                         />
                       </li>
                     );
@@ -238,6 +273,11 @@ function Popup({ ...props }) {
             <div className={PopupStyle.accessOptions}>
               <div className={PopupStyle.accessIcon}>
                 {/* <img src={'https://lh3.googleusercontent.com/a/ACg8ocL6ioTkgOiAmJeXU1jjHPiwytj2TdYzt4FHv5HLa7V9pO7r=s96-c'}></img> */}
+                {docAccess.accessType === "public" ? (
+                  <i className={`fa-solid fa-globe`}></i>
+                ) : (
+                  <i class="fa-solid fa-lock"></i>
+                )}
               </div>
               <div className={PopupStyle.accessFlex}>
                 <div className={PopupStyle.accessTitle}>
@@ -255,7 +295,9 @@ function Popup({ ...props }) {
                   </span>
                 </div>
                 <div className={PopupStyle.accessDesc}>
-                  Anyone with the link on the internet
+                  {docAccess.accessType === "public"
+                    ? "Anyone with the link on the internet"
+                    : "Only people with access can open with the link"}
                 </div>
               </div>
               {docAccess["accessType"] === "public" ? (
@@ -263,7 +305,7 @@ function Popup({ ...props }) {
                   name={"docAccessRole"}
                   updateData={updateData}
                   selected={docAccess.role}
-                  options={["viewer", "commenter", "editor"]}
+                  options={["viewer", "editor"]}
                 />
               ) : null}
             </div>
@@ -271,7 +313,7 @@ function Popup({ ...props }) {
           <div className={PopupStyle.bottom}>
             <div className={PopupStyle.bottomFlex}>
               <div className={PopupStyle.copyLink}>
-                <button>Copy link</button>
+                <button onClick={copyLink}>Copy link</button>
               </div>
 
               <div className={PopupStyle.done}>
@@ -279,8 +321,12 @@ function Popup({ ...props }) {
               </div>
             </div>
           </div>
+          {copied ? (
+            <div className={PopupStyle.copied}>Link copied!!</div>
+          ) : null}
         </div>
       </div>
+      {loading ? <FullPageLoader /> : null}
     </div>
   ) : null;
 }

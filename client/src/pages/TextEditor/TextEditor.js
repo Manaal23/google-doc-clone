@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
 import Nav from "../../components/Nav";
 import Popup from "../../components/PopUp/Popup";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 
 const TOOLBAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -24,7 +25,13 @@ export default function TextEditor() {
   const [quill, setQuill] = useState();
   const [showSaving, setShowSaving] = useState(false);
   const [title, setTitle] = useState("Document");
-  const [openPopup, setOpenPopup] = useState(false)
+  const [openPopup, setOpenPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState({
+    auth: false,
+    role: "viewer",
+  });
+  const [showShare, setShowShare] = useState(false);
 
   useEffect(() => {
     const s = io(process.env.REACT_APP_BACKEND_URL);
@@ -38,11 +45,17 @@ export default function TextEditor() {
   useEffect(() => {
     if (socket == null || quill == null) return;
 
-    socket.once("load-document", (document) => {
+    socket.once("load-document", (document, authRole) => {
+      setRole({ ...authRole });
       quill.setContents(document.data);
+      setLoading(false);
 
       setTitle(document.title);
-      quill.enable();
+
+      setShowShare(authRole.role === "owner");
+
+      if (authRole && (authRole.role === "owner" || authRole.role === "editor"))
+        quill.enable();
     });
 
     let userData = JSON.parse(localStorage.getItem("userData"));
@@ -99,6 +112,7 @@ export default function TextEditor() {
       modules: { toolbar: TOOLBAR_OPTIONS },
     });
     q.disable();
+    setLoading(true);
     q.setText("Loading...");
     setQuill(q);
   }, []);
@@ -125,17 +139,14 @@ export default function TextEditor() {
 
   return (
     <>
-      <Popup 
-        title={title}
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-        />
+      {loading ? <FullPageLoader /> : null}
+      <Popup title={title} openPopup={openPopup} setOpenPopup={setOpenPopup} />
       <Nav
         title={title}
         setTitle={setTitle}
         handleTitleChange={handleTitleChange}
         handleBlur={handleBlur}
-        showShare={true}
+        showShare={showShare}
         showSaving={showSaving}
         setOpenPopup={setOpenPopup}
       />
