@@ -55,7 +55,7 @@ function Nav({ title,setTitle, handleTitleChange, handleBlur, showShare, showSea
             </div>
           <span>Share</span>
           </div>
-          <i className={`fa-solid fa-share ${homeStyle.faShare}`}></i>
+          <i className={`fa-solid fa-share ${homeStyle.faShare}`} onClick={()=>setOpenPopup(true)}></i>
         </div>
         }
         <div className={homeStyle.logout} onClick={handleLogout}>
