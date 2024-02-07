@@ -27,8 +27,8 @@ body {
 }
 
 .container .ql-editor {
-  width: 8.5in;
-  min-height: 11in;
+  width: 90vw;
+  min-height: 100vh;
   padding: 1in;
   margin: 1rem;
   /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5); */
@@ -46,13 +46,14 @@ body {
   display: flex;
   justify-content: center;
   position: sticky;
-  top: 0;
+  top: 48px;
   z-index: 1;
   background-color: #F3F3F3;
   border: none;
   background-color: rgb(228, 228, 228);
   width: 90vw;
   border-radius: 20px;
+  flex-wrap: wrap;
 }
 
 .ql-formats button:hover{

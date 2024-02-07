@@ -55,8 +55,11 @@ function Nav({ title,setTitle, handleTitleChange, handleBlur, showShare, showSea
             </div>
           <span>Share</span>
           </div>
-        </div>}
+          <i className={`fa-solid fa-share ${homeStyle.faShare}`}></i>
+        </div>
+        }
         <div className={homeStyle.logout} onClick={handleLogout}>
+        <div className={homeStyle.logoutIcon}><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
           <button>Logout</button>
         </div>
         <div className={homeStyle.profileImg}>
