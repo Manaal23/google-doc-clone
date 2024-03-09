@@ -11,9 +11,18 @@ const cors = require("cors");
 const DocRoutes = require("./routes/documentRoutes");
 const UserRoutes = require("./routes/userRoutes");
 
+const cron = require("node-cron");
+
+cron.schedule('* * * * *', () => {
+  // Purpose of this cron job is to keep free tier server on render.com running everytime.
+  console.log('running a task every minute');
+});
+
 app.use(cors());
 
 require("dotenv").config();
+
+
 
 var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
